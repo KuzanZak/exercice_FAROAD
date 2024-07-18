@@ -10,7 +10,7 @@ export const generatedId = (): string => {
     return result; 
 }
 
-export const createCharingPoint = async (req: Request, res:Response) => {
+export const createChargingPoint = async (req: Request, res:Response) => {
     try {
         const {name, location} = req.body; 
         const id = generatedId();
