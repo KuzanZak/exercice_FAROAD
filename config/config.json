@@ -1,23 +1,27 @@
 {
   "development": {
-    "username": "root",
+    "username": "postgres",
     "password": "root",
     "database": "faroad",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "host": "localhost",
+    "dialect": "postgres",
+    "port":3000
   },
   "test": {
-    "username": "root",
+    "username": "postgres",
     "password": "root",
     "database": "faroad",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "host": "localhost",
+    "dialect": "postgres",
+    "port":3000
+
   },
   "production": {
-    "username": "root",
+    "username": "postgres",
     "password": "root",
     "database": "faroad",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "host": "localhost",
+    "dialect": "postgres",
+    "port":3000
   }
 }
