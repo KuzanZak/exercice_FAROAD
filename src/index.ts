@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 app.post('/create', createChargingPoint);
 
-app.listen(3001, async() => {
+app.listen(3000, async() => {
     console.log('Serveur sur port 3000');
     try {
         await sequelize.authenticate();
