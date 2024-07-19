@@ -18,9 +18,9 @@ const database_1 = __importDefault(require("./database/database"));
 const chargingController_1 = require("./controller/chargingController");
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
-app.post('/chargingPoint/create', chargingController_1.createChargingPoint);
-app.listen(() => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Serveur sur port ${port}');
+app.post('/create', chargingController_1.createChargingPoint);
+app.listen(3001, () => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Serveur sur port 3000');
     try {
         yield database_1.default.authenticate();
         console.log("Connexion bdd réussie");
@@ -31,3 +31,14 @@ app.listen(() => __awaiter(void 0, void 0, void 0, function* () {
         console.error("Connexion échouée", error);
     }
 }));
+app.use((req, res, next) => {
+    console.log(`Requête reçue : ${req.method} ${req.url}`);
+    next();
+});
+app.get('/', (req, res) => {
+    res.send('Hello');
+});
+app.get('/test', (req, res) => {
+    console.log('Route /test appelée');
+    res.send('Test route working');
+});

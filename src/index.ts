@@ -8,10 +8,10 @@ const app = express();
 
 app.use(bodyParser.json()); 
 
-app.post('/chargingPoint/create', createChargingPoint);
+app.post('/create', createChargingPoint);
 
-app.listen(async() => {
-    console.log('Serveur sur port ${port}');
+app.listen(3001, async() => {
+    console.log('Serveur sur port 3000');
     try {
         await sequelize.authenticate();
         console.log("Connexion bdd réussie");
@@ -21,3 +21,17 @@ app.listen(async() => {
         console.error("Connexion échouée", error);
     }
 })
+
+app.use((req, res, next) => {
+    console.log(`Requête reçue : ${req.method} ${req.url}`);
+    next();
+});
+
+app.get('/', (req, res) => {
+    res.send('Hello');
+});
+
+app.get('/test', (req, res) => {
+    console.log('Route /test appelée');
+    res.send('Test route working');
+});
