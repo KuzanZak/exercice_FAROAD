@@ -4,24 +4,20 @@
     "password": "root",
     "database": "faroad",
     "host": "localhost",
-    "dialect": "postgres",
-    "port":3000
+    "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
     "password": "root",
     "database": "faroad",
     "host": "localhost",
-    "dialect": "postgres",
-    "port":3000
-
+    "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
     "password": "root",
     "database": "faroad",
     "host": "localhost",
-    "dialect": "postgres",
-    "port":3000
+    "dialect": "postgres"
   }
 }

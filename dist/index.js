@@ -14,13 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
-const database_1 = __importDefault(require("./database/database"));
 const chargingController_1 = require("./controller/chargingController");
+const database_1 = __importDefault(require("./database/database"));
+// import { createChargingPoint } from './controller/chargingController';
+const ChargingPoint_1 = require("./model/ChargingPoint");
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
-app.post('/create', chargingController_1.createChargingPoint);
-app.listen(3000, () => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Serveur sur port 3000');
+// app.post('/create', createChargingPoint);
+const charging = ChargingPoint_1.ChargingPoint.build({ id: (0, chargingController_1.generatedId)(), name: 'Testore', location: 'bureaux' });
+charging.save();
+app.listen(3001, () => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Serveur sur port 3001');
     try {
         yield database_1.default.authenticate();
         console.log("Connexion bdd réussie");
