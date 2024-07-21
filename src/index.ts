@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express , {Request, Response} from 'express';
 import bodyParser from 'body-parser';
 import { generatedId } from './controller/chargingController';
 import sequelize from './database/database'; 
@@ -7,18 +7,43 @@ import { ChargingPoint } from './model/ChargingPoint';
 
 const app = express();
 
+// Middleware to parse JSON request bodies 
 app.use(bodyParser.json()); 
 
+// Route to create a new charging point
 // app.post('/create', createChargingPoint);
-// Insertion en dure fonction, plus qu'à gérer la requête pour l'insertion de données afin de finir
-const charging = ChargingPoint.build({id:generatedId(), name: 'Testore', location: 'bureaux' });
+app.post('/create', async (req: Request, res:Response) => {
+    console.log(req.body);
+    try {
+        // Get name/location from the request body
+        const name = req.body.name; 
+        const location = req.body.location; 
+
+        //Generate a random ID
+        const id = generatedId();
+
+        // Create a new ChargingPoint 
+        const charging = ChargingPoint.build({id, name, location});
+        await charging.save();
+        res.status(201).json(charging);
+    } catch (error) {
+        res.status(500).json({error: 'Internal Server Error'})
+    }
+}, )
+
+// Create and save a sample charing point for testing 
+const charging = ChargingPoint.build({id:generatedId(), name: 'Testoros', location: 'domicile' });
 charging.save();
 
+// Start the server and connect to the database
 app.listen(3001, async() => {
     console.log('Serveur sur port 3001');
     try {
+        // Authenticate the databe connection 
         await sequelize.authenticate();
         console.log("Connexion bdd réussie");
+
+        // Synchronize the models with the database
         await sequelize.sync();
         console.log("Bdd synchronisée");
     } catch (error){
@@ -26,17 +51,4 @@ app.listen(3001, async() => {
     }
 })
 
-app.use((req, res, next) => {
-    console.log(`Requête reçue : ${req.method} ${req.url}`);
-    next();
-});
-
-app.get('/', (req, res) => {
-    res.send('Hello');
-});
-
-app.get('/test', (req, res) => {
-    console.log('Route /test appelée');
-    res.send('Test route working');
-});
 
