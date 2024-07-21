@@ -1,16 +1,7 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createChargingPoint = exports.generatedId = void 0;
-const ChargingPoint_1 = require("../model/ChargingPoint");
+exports.generatedId = void 0;
+// Function to generate a random ID of 5 characters 
 const generatedId = () => {
     const chars = 'ABCDEFGHIJKLMPQRSTUVXYZ123456789';
     let result = '';
@@ -20,15 +11,19 @@ const generatedId = () => {
     return result;
 };
 exports.generatedId = generatedId;
-const createChargingPoint = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { name, location } = req.body;
-        const id = (0, exports.generatedId)();
-        const charging = ChargingPoint_1.ChargingPoint.create({ id, name, location });
-        res.status(201).json(charging);
-    }
-    catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-exports.createChargingPoint = createChargingPoint;
+// Controller to create e new charging point 
+// export const createChargingPoint = async (req: Request, res:Response) => {
+//     try {
+//         // Get name/location from the request body
+//         const name = req.body.name; 
+//         const location = req.body.location; 
+//         //Generate a random ID
+//         const id = generatedId();
+//         // Create a new ChargingPoint 
+//         const charging = ChargingPoint.build({id, name, location});
+//         await charging.save();
+//         res.status(201).json(charging);
+//     } catch (error) {
+//         res.status(500).json({error: 'Internal Server Error'})
+//     }
+// }
